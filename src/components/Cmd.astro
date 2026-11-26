@@ -1,0 +1,22 @@
+---
+// A dark block of commands with a working Copy button. Only the commands are copied,
+// one per line, without the prompt sign.
+interface Props {
+  lines: string[];
+  label: string;
+  copy: { label: string; done: string; aria: string };
+  prompt?: string;
+}
+const { lines, label, copy, prompt = '$' } = Astro.props;
+---
+
+<div class="cmd">
+  <div class="cmd-head">
+    <span>{label}</span>
+    <button type="button" class="copy" data-copy={lines.join('\n')} data-done={copy.done} aria-label={copy.aria}>
+      <span class="copy-label">{copy.label}</span>
+    </button>
+  </div>
+  <pre><code>{lines.map((l) => <span class="cmd-line"><span class="cmd-prompt" aria-hidden="true">{prompt} </span>{l}</span>)}</code></pre>
+  <slot />
+</div>

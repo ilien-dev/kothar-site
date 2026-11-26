@@ -1,0 +1,47 @@
+---
+interface Props {
+  t: { label: string; light: string; dark: string; system: string };
+}
+const { t } = Astro.props;
+const icons: Record<string, string> = {
+  light:
+    '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
+  dark: '<path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/>',
+  system: '<rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/>',
+};
+const options = [
+  { value: 'light', label: t.light },
+  { value: 'dark', label: t.dark },
+  { value: 'system', label: t.system },
+];
+const svg = (name: string, size: number, cls = '') =>
+  `<svg class="${cls}" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name]}</svg>`;
+---
+
+<div class="tmenu" id="tsw" data-choice="system" data-menu="closed">
+  <button
+    type="button"
+    class="ctl tm-btn"
+    id="tm-btn"
+    aria-haspopup="menu"
+    aria-expanded="false"
+    aria-controls="tm-list"
+    aria-label={`${t.label}: ${t.system}`}
+    data-label={t.label}
+  >
+    {options.map((o) => <Fragment set:html={svg(o.value, 18, `i-${o.value}`)} />)}
+  </button>
+  <div class="tm-list" id="tm-list" role="menu" aria-labelledby="tm-btn">
+    {
+      options.map((o) => (
+        <button type="button" role="menuitemradio" data-theme-choice={o.value} aria-checked={o.value === 'system' ? 'true' : 'false'} tabindex="-1">
+          <Fragment set:html={svg(o.value, 17)} />
+          <span>{o.label}</span>
+          <svg class="tm-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5" />
+          </svg>
+        </button>
+      ))
+    }
+  </div>
+</div>

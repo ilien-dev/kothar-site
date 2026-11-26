@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Home from '../components/Home.astro';
+import { dict } from '../i18n';
+const t = dict.en;
+---
+
+<Layout title={t.title} description={t.description} lang={t.lang} locale={t.locale} ogImageAlt={t.ogAlt}>
+  <Home t={t} />
+</Layout>

@@ -1,0 +1,92 @@
+---
+import '@fontsource-variable/space-grotesk';
+import '@fontsource-variable/inter';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: 'en' | 'es';
+  locale: string;
+  ogImageAlt: string;
+  // A page with no twin in the other language (the 404s): no hreflang, kept out of search.
+  standalone?: boolean;
+}
+
+const { title, description, lang, locale, ogImageAlt, standalone = false } = Astro.props;
+const site = 'https://kothar.ilien.dev';
+const canonical = new URL(Astro.url.pathname, site).href;
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Kothar',
+  applicationCategory: 'DesignApplication',
+  operatingSystem: 'Any',
+  description,
+  url: `${site}${lang === 'es' ? '/es/' : '/'}`,
+  license: 'https://opensource.org/licenses/MIT',
+  codeRepository: 'https://github.com/ilien-dev/kothar',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {
+      !standalone && (
+        <>
+          <link rel="alternate" hreflang="en" href={`${site}/`} />
+          <link rel="alternate" hreflang="es" href={`${site}/es/`} />
+          <link rel="alternate" hreflang="x-default" href={`${site}/`} />
+        </>
+      )
+    }
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#ECEEF0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141619" media="(prefers-color-scheme: dark)" />
+    <script is:inline>
+      // Before the first paint: apply a saved light or dark choice. No choice follows the system.
+      (() => {
+        let t = null;
+        try { t = localStorage.getItem('theme'); } catch {}
+        if (t !== 'light' && t !== 'dark') return;
+        document.documentElement.dataset.theme = t;
+        for (const m of document.querySelectorAll('meta[name="theme-color"]')) m.content = t === 'light' ? '#ECEEF0' : '#141619';
+      })();
+    </script>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kothar" />
+    <meta property="og:locale" content={locale} />
+    {standalone && <meta name="robots" content="noindex" />}
+    {!standalone && <meta property="og:locale:alternate" content={locale === 'es_ES' ? 'en_US' : 'es_ES'} />}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${site}/og-image.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {!standalone && <script type="application/ld+json" set:html={JSON.stringify(ld)} />}
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <slot />
+    <script>
+      import '../scripts/main.ts';
+    </script>
+  </body>
+</html>

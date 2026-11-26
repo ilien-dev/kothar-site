@@ -1,0 +1,214 @@
+---
+import Mark from './Mark.astro';
+import ThemeSwitch from './ThemeSwitch.astro';
+import Cmd from './Cmd.astro';
+import { repoUrl, type Dict } from '../i18n';
+
+interface Props {
+  t: Dict;
+}
+const { t } = Astro.props;
+const claudeLines = ['/plugin marketplace add ilien-dev/kothar', '/plugin install kothar@kothar'];
+const npxLine = ['npx skills add ilien-dev/kothar'];
+const nav = [
+  { id: 'how', n: '01', label: t.nav.how },
+  { id: 'behind', n: '02', label: t.nav.behind },
+  { id: 'get', n: '03', label: t.nav.get },
+  { id: 'install', n: '04', label: t.nav.install },
+  { id: 'open', n: '05', label: t.nav.open },
+];
+// The real passes of this logo, from .kothar/concepts/b-steps in ilien-dev/kothar.
+const passes = [
+  { v: 'v1', svg: '<rect x="28" y="28" width="94" height="94" rx="18"/><rect x="28" y="134" width="94" height="94" rx="18"/><rect x="134" y="134" width="94" height="94" rx="18"/><circle class="mark-disc" cx="181" cy="75" r="47"/>' },
+  { v: 'v2', svg: '<rect x="20" y="164" width="72" height="72"/><rect x="92" y="92" width="72" height="72" rx="20"/><circle class="mark-disc" cx="200" cy="56" r="36"/>' },
+  { v: 'v3', svg: '<path d="M28 28H200A28 28 0 0 1 228 56V164A64 64 0 0 1 164 228H128A100 100 0 0 1 28 128Z"/>' },
+];
+---
+
+<a class="skip" href="#main">{t.skip}</a>
+<p id="live" class="sr-only" aria-live="polite"></p>
+
+<header class="site-header">
+  <nav class="nav wrap" aria-label={t.nav.label}>
+    <a class="brand" href={t.home} aria-label="kothar">
+      <Mark size={28} />
+      <span class="wordmark">kothar</span>
+    </a>
+    <ul class="nav-links">
+      {
+        nav.map((s) => (
+          <li>
+            <a href={`#${s.id}`}>
+              <span class="nav-n">{s.n}</span>
+              {s.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="nav-tools">
+      <a class="ctl lang" href={t.other.href} hreflang={t.other.href === '/' ? 'en' : 'es'} lang={t.other.href === '/' ? 'en' : 'es'} aria-label={t.other.label}>
+        {t.other.short}
+      </a>
+      <ThemeSwitch t={t.theme} />
+      <a class="ctl gh" href={repoUrl}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"></path>
+        </svg>
+        <span>GitHub</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero wrap" aria-labelledby="hero-title">
+    <p class="hero-side" aria-hidden="true">{t.hero.side}</p>
+    <div class="hero-body">
+      <p class="eyebrow">{t.hero.eyebrow}</p>
+      <h1 id="hero-title">{t.hero.title}<span class="dot">.</span></h1>
+      <div class="hero-row">
+        <p class="lead">{t.hero.lead}</p>
+        <div class="hero-install">
+          <Cmd lines={claudeLines} label={t.hero.card} copy={t.copy}>
+            <p class="cmd-foot">{t.hero.then} <code>/kothar:kothar</code></p>
+            <p class="cmd-foot cmd-foot-muted">{t.hero.others} <code>npx skills add ilien-dev/kothar</code></p>
+          </Cmd>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="giant" aria-hidden="true"><span>kothar</span><span class="giant-dot"></span></div>
+
+  <section id="how" class="block wrap split" aria-labelledby="how-title">
+    <div class="split-head">
+      <span class="big-n" aria-hidden="true">01</span>
+      <h2 id="how-title">{t.how.title}</h2>
+      <p class="muted-p">{t.how.intro}</p>
+      <p class="note">{t.how.note}</p>
+    </div>
+    <ol class="steps">
+      {
+        t.how.steps.map((s, i) => (
+          <li>
+            <span class="label">
+              {t.how.step} {i + 1}
+            </span>
+            <h3>{s.title}</h3>
+            <p set:html={s.body} />
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section id="behind" class="band" aria-labelledby="behind-title">
+    <div class="wrap block">
+      <div class="band-head">
+        <h2 id="behind-title">{t.behind.title}</h2>
+        <p>{t.behind.body}</p>
+      </div>
+      <div class="cells">
+        <figure class="cell">
+          <span class="cell-tag">ideas.md</span>
+          <ul class="ideas">
+            {t.behind.ideas.map((i) => <li class={i.kept ? 'kept' : 'cut'}>{i.kept ? <span>{i.n} · {i.t}</span> : <s>{i.n} · {i.t}</s>}</li>)}
+            <li class="cut">{t.behind.ideasMore}</li>
+          </ul>
+          <figcaption>{t.behind.ideasCaption}</figcaption>
+        </figure>
+        <figure class="cell">
+          <span class="cell-tag">v1 → v3</span>
+          <div class="passes" role="img" aria-label={`${t.behind.passes}: v1, v2, v3, kothar`}>
+            {
+              passes.map((p) => (
+                <span class="pass">
+                  <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" set:html={p.svg} />
+                  <span>{p.v}</span>
+                </span>
+              ))
+            }
+            <span class="pass pass-final">
+              <Mark size={72} />
+              <span>kothar</span>
+            </span>
+          </div>
+          <figcaption>{t.behind.passesCaption}</figcaption>
+        </figure>
+        <figure class="cell">
+          <span class="cell-tag">16 px</span>
+          <div class="tab-demo">
+            <div class="tab">
+              <Mark size={16} />
+              <span class="tab-name">kothar</span>
+              <svg class="tab-ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label={t.behind.tabOk}>
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+            </div>
+            <div class="tab-bar"></div>
+          </div>
+          <figcaption>{t.behind.tabCaption}</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="get" class="block wrap" aria-labelledby="get-title">
+    <div class="get-head">
+      <span class="big-n" aria-hidden="true">03</span>
+      <h2 id="get-title">{t.get.title}</h2>
+    </div>
+    <dl class="rows">
+      {
+        t.get.rows.map((r) => (
+          <div class="row">
+            <dt>{r.title}</dt>
+            <dd>{r.body}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <section id="install" class="install" aria-labelledby="install-title">
+    <div class="wrap block install-grid">
+      <div class="install-head">
+        <span class="big-n big-n-on" aria-hidden="true">04</span>
+        <h2 id="install-title">{t.install.title}</h2>
+        <p>{t.install.tip}</p>
+      </div>
+      <div class="install-cmds">
+        <Cmd lines={claudeLines} label={t.install.claude} copy={t.copy}>
+          <p class="cmd-foot">{t.install.claudeThen} <code>/kothar:kothar</code></p>
+        </Cmd>
+        <Cmd lines={npxLine} label={t.install.others} copy={t.copy}>
+          <p class="cmd-foot cmd-foot-muted" set:html={t.install.othersNote} />
+        </Cmd>
+      </div>
+    </div>
+  </section>
+
+  <footer id="open" class="wrap block footer">
+    <span class="big-n" aria-hidden="true">05</span>
+    <div class="foot-cols">
+      <div>
+        <h2 class="label">{t.open.dev}</h2>
+        <p set:html={t.open.devBody} />
+      </div>
+      <div>
+        <h2 class="label">{t.open.contrib}</h2>
+        <p set:html={t.open.contribBody} />
+      </div>
+      <div>
+        <h2 class="label">{t.open.licence}</h2>
+        <p set:html={t.open.licenceBody} />
+      </div>
+    </div>
+    <div class="foot-line">
+      <span>{t.open.tagline}</span>
+      <a href={repoUrl}>github.com/ilien-dev/kothar</a>
+    </div>
+  </footer>
+</main>

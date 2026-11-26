@@ -1,0 +1,15 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Mark from '../../components/Mark.astro';
+import { dict } from '../../i18n';
+const t = dict.es;
+---
+
+<Layout title={`${t.notFound.title} · kothar`} description={t.notFound.body} lang={t.lang} locale={t.locale} ogImageAlt={t.ogAlt} standalone>
+  <main class="wrap nf">
+    <Mark size={64} />
+    <h1>404<span class="dot">.</span></h1>
+    <p>{t.notFound.body}</p>
+    <a class="ctl gh" href={t.home}>{t.notFound.back}</a>
+  </main>
+</Layout>
