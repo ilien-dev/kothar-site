@@ -1,0 +1,57 @@
+{
+  "name": "Kothar site",
+  "repo": "ilien-dev/kothar-site",
+  "defaultBranch": "main",
+  "purpose": "presents Kothar at kothar.ilien.dev, in English and Spanish: what it does, how it works, what you get and how to install it.",
+  "shipped": [],
+  "issueFirst": true,
+  "measured": {
+    "enabled": false,
+    "types": [
+      "feat",
+      "fix",
+      "perf"
+    ],
+    "methods": []
+  },
+  "commands": [
+    "npm run build"
+  ],
+  "ci": {
+    "requiredChecks": []
+  },
+  "release": {
+    "kind": "none",
+    "versionFiles": [],
+    "build": [],
+    "buildSecrets": [],
+    "npmPrepare": [],
+    "finish": []
+  },
+  "standard": 1,
+  "branch": {
+    "types": [
+      "feat",
+      "fix",
+      "perf",
+      "refactor",
+      "docs",
+      "test",
+      "build",
+      "ci",
+      "chore",
+      "style",
+      "revert"
+    ],
+    "maxWords": 5
+  },
+  "title": {
+    "max": 72
+  },
+  "releaseTypes": [
+    "feat",
+    "fix",
+    "perf",
+    "revert"
+  ]
+}
