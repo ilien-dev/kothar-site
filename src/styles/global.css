@@ -841,6 +841,85 @@ h3 {
   font-size: 17px;
 }
 
+/* side by side: the same brief with and without kothar */
+#compare {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.compare-intro {
+  max-width: 60ch;
+}
+.brief {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 24px;
+  border-radius: 12px;
+  background: var(--code-bg);
+  color: var(--code-ink);
+}
+.brief .label {
+  color: var(--code-acc);
+}
+.brief p {
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.runs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 24px;
+}
+.run {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 32px;
+  border-radius: 16px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+.run-kothar {
+  border: 2px solid var(--orange);
+}
+.run-kothar h3 {
+  color: var(--acc);
+}
+.run-logo {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  align-self: center;
+  margin-block: 16px;
+  border-radius: 12px;
+}
+.run-test {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-block: 16px;
+  border-top: 1px solid var(--line);
+}
+.run-test img {
+  flex-shrink: 0;
+  border-radius: 6px;
+  outline: 1px solid var(--line);
+}
+.run-test p {
+  margin-top: 4px;
+  color: var(--body);
+  line-height: 1.5;
+}
+.run-test b {
+  font-family: var(--mono);
+  color: var(--ink);
+}
+.pixelated {
+  image-rendering: pixelated;
+}
+
 /* install band: orange in both themes (ink on orange 5.0:1) */
 .install {
   background: var(--orange);

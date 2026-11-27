@@ -14,8 +14,9 @@ const nav = [
   { id: 'how', n: '01', label: t.nav.how },
   { id: 'behind', n: '02', label: t.nav.behind },
   { id: 'get', n: '03', label: t.nav.get },
-  { id: 'install', n: '04', label: t.nav.install },
-  { id: 'open', n: '05', label: t.nav.open },
+  { id: 'compare', n: '04', label: t.nav.compare },
+  { id: 'install', n: '05', label: t.nav.install },
+  { id: 'open', n: '06', label: t.nav.open },
 ];
 // The real passes of this logo, from .kothar/concepts/b-steps in ilien-dev/kothar.
 const passes = [
@@ -172,10 +173,59 @@ const passes = [
     </dl>
   </section>
 
+  <section id="compare" class="block wrap" aria-labelledby="compare-title">
+    <div class="get-head">
+      <span class="big-n" aria-hidden="true">04</span>
+      <h2 id="compare-title">{t.compare.title}</h2>
+    </div>
+    <p class="muted-p compare-intro">{t.compare.intro}</p>
+    <div class="brief">
+      <span class="label">{t.compare.briefLabel}</span>
+      <p lang="en">{t.compare.brief}</p>
+    </div>
+    <div class="runs">
+      {
+        t.compare.runs.map((r, i) => (
+          <article class={i === 1 ? 'run run-kothar' : 'run'}>
+            <h3>{r.name}</h3>
+            <img class="run-logo" src={r.logo} alt={r.logoAlt} width="320" height="320" loading="lazy" />
+            <div class="run-test">
+              <img class="pixelated" src={r.small} alt={r.smallAlt} width="72" height="72" loading="lazy" />
+              <div>
+                <span class="label">{t.compare.labels.small}</span>
+                <p>{r.smallText}</p>
+              </div>
+            </div>
+            <div class="run-test">
+              <img src={r.mono} alt={r.monoAlt} width="72" height="72" loading="lazy" />
+              <div>
+                <span class="label">{t.compare.labels.mono}</span>
+                <p>{r.monoText}</p>
+              </div>
+            </div>
+            <div class="run-test">
+              <div>
+                <span class="label">{t.compare.labels.contrast}</span>
+                <p set:html={r.contrast} />
+              </div>
+            </div>
+            <div class="run-test">
+              <div>
+                <span class="label">{t.compare.labels.process}</span>
+                <p>{r.process}</p>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+    <p class="note">{t.compare.note}</p>
+  </section>
+
   <section id="install" class="install" aria-labelledby="install-title">
     <div class="wrap block install-grid">
       <div class="install-head">
-        <span class="big-n big-n-on" aria-hidden="true">04</span>
+        <span class="big-n big-n-on" aria-hidden="true">05</span>
         <h2 id="install-title">{t.install.title}</h2>
         <p>{t.install.tip}</p>
       </div>
@@ -191,7 +241,7 @@ const passes = [
   </section>
 
   <footer id="open" class="wrap block footer">
-    <span class="big-n" aria-hidden="true">05</span>
+    <span class="big-n" aria-hidden="true">06</span>
     <div class="foot-cols">
       <div>
         <h2 class="label">{t.open.dev}</h2>
